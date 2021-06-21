@@ -1109,8 +1109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48beabe7f2e18f54e8948aa1752c2e93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dampTime: 0.15
-  target: {fileID: 52368398}
+  m_DampTime: 0.25
+  m_Target: {fileID: 52368398}
+  m_XOffset: 2
+  m_YOffset: 0
 --- !u!1 &725230042
 GameObject:
   m_ObjectHideFlags: 0
