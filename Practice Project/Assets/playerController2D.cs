@@ -41,20 +41,20 @@ public class playerController2D : MonoBehaviour
 
     // Update is called once per frame
     private void FixedUpdate()
-    {
-        bool wasGrounded = m_Grounded;
-        m_Grounded = false;
+	{
+		bool wasGrounded = m_Grounded;
+		m_Grounded = false;
 
 		Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
-        for (int i = 0; i < colliders.Length; i++)
-        {
-            if (colliders[i].gameObject != gameObject)
-            {
-                m_Grounded = true;
-                if (!wasGrounded)
-                    OnLandEvent.Invoke();
-            }
-        }
+		for (int i = 0; i < colliders.Length; i++)
+		{
+			if (colliders[i].gameObject != gameObject)
+			{
+				m_Grounded = true;
+				if (!wasGrounded)
+					OnLandEvent.Invoke();
+			}
+		}
     }
 
     public void Move(float move, bool crouch, bool jump)
