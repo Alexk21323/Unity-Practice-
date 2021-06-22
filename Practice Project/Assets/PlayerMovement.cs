@@ -76,6 +76,11 @@ public class PlayerMovement : MonoBehaviour
                 jump = true;            
             }
         }
+        if(col.gameObject.tag =="Gem")
+        {
+            Destroy(col.gameObject);
+            score++;
+        }
     }
 
     void FixedUpdate()
