@@ -60,7 +60,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if(col.gameObject.tag == "Enemy")
         {
-            Debug.Log("hit");
             if (isJumping)
             {
                 if(animator.GetBool("isJumping"))
