@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -13,9 +14,17 @@ public class PlayerMovement : MonoBehaviour
     bool isJumping = false;
     bool crouch = false;
 
+    public BoxCollider2D boxCol;
+    public CircleCollider2D circCol;
+    
+    public Text ScoreText;
+
+    int score; 
     // Update is called once per frame
     void Update()
     {
+        ScoreText.text = "Score:" + score.ToString();
+
         horziontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
         animator.SetFloat("moveSpeed", Mathf.Abs(horziontalMove));
         
@@ -33,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
         else if(Input.GetButtonUp("Crouch")){
             crouch = false;
         }
+
     }
 
     public void OnLanding()
@@ -55,10 +65,15 @@ public class PlayerMovement : MonoBehaviour
             {
                 if(animator.GetBool("isJumping"))
                 Destroy(col.gameObject);
+                score++;
             }
             else
             {
-            Destroy(this.gameObject);
+                animator.SetBool("isHurt", true);    
+                boxCol.enabled = false;
+                circCol.enabled = false;
+                controller.m_JumpForce = 300f;
+                jump = true;            
             }
         }
     }
