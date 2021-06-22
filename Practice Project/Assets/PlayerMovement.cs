@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public float runSpeed = 40f; 
     float horziontalMove = 0f;
     bool jump = false;
+    bool isJumping = false;
     bool crouch = false;
 
     // Update is called once per frame
@@ -21,10 +22,10 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetButtonDown("Jump")) 
         {
             jump = true;
-            animator.SetBool("isJumping", true); 
+            isJumping = true;
+            animator.SetBool("isJumping", isJumping); 
 
         }
-        
         if(Input.GetButtonDown("Crouch"))
         {
             crouch = true;
@@ -32,21 +33,36 @@ public class PlayerMovement : MonoBehaviour
         else if(Input.GetButtonUp("Crouch")){
             crouch = false;
         }
-
     }
 
     public void OnLanding()
     {
-        animator.SetBool("isJumping", false); 
+        isJumping = false;
+        animator.SetBool("isJumping", isJumping); 
     }
 
     public void OnCrouching (bool crouch)
     {
-        Debug.Log("hit");
         animator.SetBool("isCrouching", crouch);
     }
     
-    
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if(col.gameObject.tag == "Enemy")
+        {
+            Debug.Log("hit");
+            if (isJumping)
+            {
+                if(animator.GetBool("isJumping"))
+                Destroy(col.gameObject);
+            }
+            else
+            {
+            Destroy(this.gameObject);
+            }
+        }
+    }
+
     void FixedUpdate()
     {
         controller.Move(horziontalMove * Time.fixedDeltaTime, crouch, jump);

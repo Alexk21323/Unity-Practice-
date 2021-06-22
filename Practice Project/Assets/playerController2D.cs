@@ -18,6 +18,7 @@ public class playerController2D : MonoBehaviour
     private Rigidbody2D m_Rigidbody2D;
     private bool m_FacingRight = true;  // For determining which way the player is currently facing.
     private Vector3 m_Velocity = Vector3.zero;
+    public Animator animator;
 
     [Header("Events")]
     [Space]
@@ -29,6 +30,9 @@ public class playerController2D : MonoBehaviour
 
     public BoolEvent OnCrouchEvent;
     private bool m_wasCrouching = false;
+    
+    //Stop watch to fix jumping issue 
+    private System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
     
     private void Awake()
     {
@@ -43,6 +47,8 @@ public class playerController2D : MonoBehaviour
     private void FixedUpdate()
 	{
 		bool wasGrounded = m_Grounded;
+        if(m_Grounded)
+            sw.Start();
 		m_Grounded = false;
 
 		Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
@@ -50,11 +56,15 @@ public class playerController2D : MonoBehaviour
 		{
 			if (colliders[i].gameObject != gameObject)
 			{
+                sw.Stop();
 				m_Grounded = true;
-				if (!wasGrounded)
+                if (!wasGrounded && sw.ElapsedMilliseconds > (long)30)
+                {
 					OnLandEvent.Invoke();
+                    sw.Reset();
+                }
 			}
-		}
+		}    
     }
 
     public void Move(float move, bool crouch, bool jump)
