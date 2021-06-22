@@ -68,14 +68,14 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                animator.SetBool("isHurt", true);    
                 boxCol.enabled = false;
                 circCol.enabled = false;
+                animator.SetBool("isHurt", true);    
                 controller.m_JumpForce = 300f;
                 jump = true;            
             }
         }
-        if(col.gameObject.tag =="Gem")
+        if(col.gameObject.tag =="Gem" && animator.GetBool("isHurt") == false)
         {
             Destroy(col.gameObject);
             score++;
