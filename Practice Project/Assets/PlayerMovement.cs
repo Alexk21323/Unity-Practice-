@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator; 
     public float runSpeed = 40f; 
     float horziontalMove = 0f;
+    float DisstanceToTheGround; 
     bool jump = false;
     bool isJumping = false;
     bool crouch = false;
@@ -20,6 +21,11 @@ public class PlayerMovement : MonoBehaviour
     public Text ScoreText;
 
     int score; 
+
+    void Start()
+    {
+        DisstanceToTheGround = circCol.bounds.extents.y;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -31,9 +37,6 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetButtonDown("Jump")) 
         {
             jump = true;
-            isJumping = true;
-            animator.SetBool("isJumping", isJumping); 
-
         }
         if(Input.GetButtonDown("Crouch"))
         {
@@ -41,6 +44,11 @@ public class PlayerMovement : MonoBehaviour
         }
         else if(Input.GetButtonUp("Crouch")){
             crouch = false;
+        }
+        if(controller.m_Grounded == false)
+        {
+            animator.SetBool("isJumping", true);
+            isJumping = true;
         }
 
     }
