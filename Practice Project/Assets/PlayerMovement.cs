@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     float DisstanceToTheGround; 
     bool jump = false;
     bool isJumping = false;
+    bool isFalling = false;
     bool crouch = false;
 
     public BoxCollider2D boxCol;
@@ -45,10 +46,22 @@ public class PlayerMovement : MonoBehaviour
         else if(Input.GetButtonUp("Crouch")){
             crouch = false;
         }
+        
         if(controller.m_Grounded == false)
         {
             animator.SetBool("isJumping", true);
             isJumping = true;
+        }
+        
+        if(controller.m_Rigidbody2D.velocity.y < 0f)
+        {
+            animator.SetBool("isFalling",true);
+            animator.SetBool("isJumping", false);
+        }
+
+        if(controller.m_Grounded)
+        {
+            animator.SetBool("isFalling", false);
         }
 
     }
@@ -56,7 +69,8 @@ public class PlayerMovement : MonoBehaviour
     public void OnLanding()
     {
         isJumping = false;
-        animator.SetBool("isJumping", isJumping); 
+        animator.SetBool("isFalling", false); 
+        
     }
 
     public void OnCrouching (bool crouch)
@@ -68,9 +82,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if(col.gameObject.tag == "Enemy")
         {
-            if (isJumping)
+            if (controller.m_Grounded == false)
             {
-                if(animator.GetBool("isJumping"))
                 Destroy(col.gameObject);
                 score++;
             }
