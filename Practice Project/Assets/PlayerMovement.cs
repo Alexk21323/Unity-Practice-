@@ -76,11 +76,11 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                boxCol.enabled = false;
-                circCol.enabled = false;
                 animator.SetBool("isHurt", true);    
-                controller.m_JumpForce = 300f;
-                jump = true;            
+                controller.m_JumpForce = 400f;
+                jump = true;
+                circCol.enabled = false;
+                boxCol.enabled = false;            
             }
         }
         if(col.gameObject.tag =="Gem" && animator.GetBool("isHurt") == false)

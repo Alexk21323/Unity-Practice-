@@ -60,7 +60,6 @@ public class playerController2D : MonoBehaviour
 				m_Grounded = true;
                 if (!wasGrounded && sw.ElapsedMilliseconds > (long)7)
                 {
-                    Debug.Log("hit");
 					OnLandEvent.Invoke();
                     sw.Reset();
                 }
