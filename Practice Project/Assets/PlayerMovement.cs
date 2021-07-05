@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isJumping", true);
         }
         
-        if(controller.m_Rigidbody2D.velocity.y < 0f)
+        if(controller.m_Rigidbody2D.velocity.y < -0.01f)
         {
             animator.SetBool("isFalling",true);
             animator.SetBool("isJumping", false);
@@ -75,9 +75,9 @@ public class PlayerMovement : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.gameObject.tag == "Enemy")
+        if(col.gameObject.tag == "Enemy" &&  !(animator.GetBool("isHurt")))
         {
-            if (controller.m_Grounded == false && controller.m_Rigidbody2D.velocity.y < 0f && !(animator.GetBool("isHurt")))
+            if (controller.m_Grounded == false && controller.m_Rigidbody2D.velocity.y < 0f)
             {
                 Destroy(col.gameObject);
                 score++;
