@@ -77,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(col.gameObject.tag == "Enemy")
         {
-            if (controller.m_Grounded == false && controller.m_Rigidbody2D.velocity.y < 0f)
+            if (controller.m_Grounded == false && controller.m_Rigidbody2D.velocity.y < 0f && !(animator.GetBool("isHurt")))
             {
                 Destroy(col.gameObject);
                 score++;

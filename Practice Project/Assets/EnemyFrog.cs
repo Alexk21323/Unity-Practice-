@@ -44,6 +44,7 @@ public class EnemyFrog : Enemy
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(IsFalling);
         if (faceLeft)
         {
             if (col.IsTouchingLayers(ground))
