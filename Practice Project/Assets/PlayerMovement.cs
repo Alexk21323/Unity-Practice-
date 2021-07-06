@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -60,6 +62,12 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("isFalling", false);
         }
+        
+        if(transform.position.y < -7)
+        {
+            Destroy(gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -1);
+        }
 
     }
 
@@ -98,6 +106,12 @@ public class PlayerMovement : MonoBehaviour
         {
             Destroy(col.gameObject);
             score++;
+        }
+
+        if(col.gameObject.tag =="Cherry" && animator.GetBool("isHurt") == false)
+        {
+            Destroy(col.gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -1);
         }
     }
 
