@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
-
+ 
+ 
 public class PlayerMovement : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -16,16 +16,16 @@ public class PlayerMovement : MonoBehaviour
     float DisstanceToTheGround; 
     bool jump = false;
     bool crouch = false;
-
+ 
     public BoxCollider2D boxCol;
     public CircleCollider2D circCol;
-
+ 
     public UnityEvent DeathEvent;
     
     public Text ScoreText;
-
+ 
     int score; 
-
+ 
     void Start()
     {
         DisstanceToTheGround = circCol.bounds.extents.y;
@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         ScoreText.text = "Score:" + score.ToString();
-
+ 
         horziontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
         animator.SetFloat("moveSpeed", Mathf.Abs(horziontalMove));
         
@@ -46,7 +46,8 @@ public class PlayerMovement : MonoBehaviour
         {
             crouch = true;
         }
-        else if(Input.GetButtonUp("Crouch")){
+        else if(Input.GetButtonUp("Crouch"))
+        {
             crouch = false;
         }
         
@@ -60,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isFalling",true);
             animator.SetBool("isJumping", false);
         }
-
+ 
         if(controller.m_Grounded)
         {
             animator.SetBool("isFalling", false);
@@ -71,14 +72,14 @@ public class PlayerMovement : MonoBehaviour
             Destroy(gameObject);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -1);
         }
-
+ 
     }
-
+ 
     public void OnLanding()
     {
         animator.SetBool("isFalling", false);    
     }
-
+ 
     public void OnCrouching (bool crouch)
     {
         animator.SetBool("isCrouching", crouch);
@@ -111,17 +112,18 @@ public class PlayerMovement : MonoBehaviour
             Destroy(col.gameObject);
             score++;
         }
-
+ 
         if(col.gameObject.tag =="Cherry" && animator.GetBool("isHurt") == false)
         {
             Destroy(col.gameObject);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -1);
         }
     }
-
+ 
     void FixedUpdate()
     {
         controller.Move(horziontalMove * Time.fixedDeltaTime, crouch, jump);
         jump = false;
     }
 }
+

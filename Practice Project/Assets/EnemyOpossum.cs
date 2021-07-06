@@ -29,7 +29,6 @@ public class EnemyOpossum : Enemy
     {
         if (isLeft)
         {
-            Debug.Log(isLeft);
             rb.velocity = new Vector2(-5, rb.velocity.y);
             transform.localScale = new Vector3(3f, 3f, 1);
             if (transform.position.x < leftX)
