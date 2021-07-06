@@ -17,6 +17,7 @@ public class EnemyFrog : Enemy
     private bool faceLeft = true;
     private float leftX;
     private float rightX;
+    private System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
 
     private bool IsJumping
     {
@@ -84,10 +85,16 @@ public class EnemyFrog : Enemy
         {
             IsFalling = false;
         }
-    }
-  
         
-    
-    
+        if(sw.ElapsedMilliseconds > (long)600)
+            Destroy(gameObject);
+    }
 
+    public override void JumpOn()
+    {
+        anim.SetTrigger("death");   
+        col.enabled = false;
+        rb.constraints = RigidbodyConstraints2D.FreezePosition;
+        sw.Start();
+    }
 }

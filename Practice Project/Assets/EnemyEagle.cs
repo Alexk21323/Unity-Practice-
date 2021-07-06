@@ -9,16 +9,17 @@ public class EnemyEagle : Enemy
     public float moveSpeed = 5;
 
     private Rigidbody2D rb;
-    private Collider2D coll;
+    private Collider2D col;
     private bool isUp = true;
     private float topY;
     private float bottomY;
+    private System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
 
     protected override void Start()
     {
         base.Start();
         rb = GetComponent<Rigidbody2D>();
-        coll = GetComponent<Collider2D>();
+        col = GetComponent<Collider2D>();
 
         transform.DetachChildren();
         topY = topPoint.position.y;
@@ -36,7 +37,7 @@ public class EnemyEagle : Enemy
                 isUp = false;
             }
         }
-        else
+        else if (!isUp)
         {
             rb.velocity = new Vector2(rb.velocity.x, -moveSpeed);
             
@@ -45,5 +46,16 @@ public class EnemyEagle : Enemy
                 isUp = true;
             }
         }
+        
+        if(sw.ElapsedMilliseconds > (long)600)
+            Destroy(gameObject);
+    }
+    
+    public override void JumpOn()
+    {
+        anim.SetTrigger("death");   
+        col.enabled = false;
+        rb.constraints = RigidbodyConstraints2D.FreezePosition;
+        sw.Start();
     }
 }

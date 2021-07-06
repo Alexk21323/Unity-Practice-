@@ -11,9 +11,9 @@ public class Enemy : MonoBehaviour
         anim = GetComponent<Animator>();
     }
     
-    public void JumpOn()
+    public virtual void JumpOn()
     {
-        anim.SetTrigger("death");
+        anim.SetTrigger("death");   
     }
 
     public void Death()

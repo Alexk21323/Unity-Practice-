@@ -13,6 +13,7 @@ public class EnemyOpossum : Enemy
     private bool isLeft = true;
     private float leftX;
     private float rightX;
+    private System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
 
     protected override void Start()
     {
@@ -46,5 +47,16 @@ public class EnemyOpossum : Enemy
                 isLeft = true;
             }
         }
+        
+        if(sw.ElapsedMilliseconds > (long)600)
+            Destroy(gameObject);
+    }
+
+    public override void JumpOn()
+    {
+        anim.SetTrigger("death");   
+        col.enabled = false;
+        rb.constraints = RigidbodyConstraints2D.FreezePosition;
+        sw.Start();
     }
 }

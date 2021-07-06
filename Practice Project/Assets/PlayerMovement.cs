@@ -75,11 +75,12 @@ public class PlayerMovement : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.gameObject.tag == "Enemy" &&  !(animator.GetBool("isHurt")))
+        if(col.gameObject.tag == "Enemy" && !(animator.GetBool("isHurt")))
         {
             if (controller.m_Grounded == false && controller.m_Rigidbody2D.velocity.y < 0f)
             {
-                Destroy(col.gameObject);
+                Enemy enemy = col.gameObject.GetComponent<Enemy>();
+                enemy.JumpOn();
                 score++;
             }
             else
