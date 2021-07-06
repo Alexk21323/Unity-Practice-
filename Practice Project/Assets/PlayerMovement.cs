@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -18,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
 
     public BoxCollider2D boxCol;
     public CircleCollider2D circCol;
+
+    public UnityEvent DeathEvent;
     
     public Text ScoreText;
 
@@ -100,6 +103,7 @@ public class PlayerMovement : MonoBehaviour
                 controller.m_Rigidbody2D.AddForce(new Vector2(0f, 700f));
                 circCol.enabled = false;
                 boxCol.enabled = false;            
+                DeathEvent.Invoke();
             }
         }
         if(col.gameObject.tag =="Gem" && animator.GetBool("isHurt") == false)
