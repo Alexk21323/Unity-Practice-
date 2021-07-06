@@ -85,7 +85,7 @@ public class EnemyFrog : Enemy
         {
             IsFalling = false;
         }
-        
+
         if(sw.ElapsedMilliseconds > (long)600)
             Destroy(gameObject);
     }

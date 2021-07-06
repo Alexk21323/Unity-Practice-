@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     public playerController2D  controller;
     public Animator animator; 
-    public float runSpeed = 40f; 
+    public float runSpeed = 30f; 
     float horziontalMove = 0f;
     float DisstanceToTheGround; 
     bool jump = false;
@@ -82,12 +82,14 @@ public class PlayerMovement : MonoBehaviour
                 Enemy enemy = col.gameObject.GetComponent<Enemy>();
                 enemy.JumpOn();
                 score++;
+                controller.m_Rigidbody2D.velocity = new Vector2(0f, 0f);
+                controller.m_Rigidbody2D.AddForce(new Vector2(0f, 300f));
             }
             else
             {
                 animator.SetBool("isHurt", true);    
                 controller.m_Rigidbody2D.velocity = new Vector2(0f, 0f);
-                controller.m_Rigidbody2D.AddForce(new Vector2(0f, 400f));
+                controller.m_Rigidbody2D.AddForce(new Vector2(0f, 700f));
                 circCol.enabled = false;
                 boxCol.enabled = false;            
             }

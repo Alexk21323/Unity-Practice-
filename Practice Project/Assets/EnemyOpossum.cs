@@ -6,7 +6,7 @@ public class EnemyOpossum : Enemy
 {
     public Transform leftPoint;
     public Transform rightPoint;
-    public float moveSpeed = 5;
+    public float moveSpeed = 2.5f;
 
     private Rigidbody2D rb;
     private Collider2D col;
@@ -47,7 +47,7 @@ public class EnemyOpossum : Enemy
                 isLeft = true;
             }
         }
-        
+
         if(sw.ElapsedMilliseconds > (long)600)
             Destroy(gameObject);
     }
