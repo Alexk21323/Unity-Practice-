@@ -65,6 +65,8 @@ public class PlayerMovement : MonoBehaviour
         if(controller.m_Grounded)
         {
             animator.SetBool("isFalling", false);
+            animator.SetBool("isJumping", false);
+
         }
         
         if(transform.position.y < -7)
